@@ -12,7 +12,14 @@ contract Rewards {
         uint256 _amount
     );
 
+    event Approval(
+        address indexed _owner,
+        address indexed _spender,
+        uint256 _amount
+    );
+
     mapping(address => uint256) public balanceOf;
+    mapping(address => mapping(address => uint256)) public allowance;
 
     function Rewards(uint256 _initialSupply) public {
         // Sets the admin who owns all the tokens
@@ -30,8 +37,32 @@ contract Rewards {
         balanceOf[msg.sender] -= _amount;
         balanceOf[_to] += _amount;
         
-        Transfer(msg.sender, _to, _amount);
+        emit Transfer(msg.sender, _to, _amount);
         
+        return true;
+    }
+
+    function transferFrom(address _from, address _to, uint256 _amount) public returns (bool success) {
+        require(_amount <= balanceOf[_from]);
+        require(_amount <= allowance[_from][msg.sender]);
+        require(_to != address(0));
+
+        balanceOf[_from] -= _amount;
+        balanceOf[_to] += _amount;
+        allowance[_from][msg.sender] -= _amount;
+        
+        emit Transfer(_from, _to, _amount);
+
+        return true;
+    }
+
+    function approve(address _spender, uint256 _amount) public returns (bool success) {
+        require(_spender != address(0));
+
+        allowance[msg.sender][_spender] = _amount;
+        
+        emit Approval(msg.sender, _spender, _amount);
+
         return true;
     }
 }
