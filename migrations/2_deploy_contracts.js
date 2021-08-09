@@ -1,5 +1,5 @@
 const Rewards = artifacts.require("Rewards");
 
 module.exports = function (deployer) {
-  deployer.deploy(Rewards);
+  deployer.deploy(Rewards, 500000000);
 };
