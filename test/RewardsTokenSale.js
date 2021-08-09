@@ -63,5 +63,27 @@ contract('RewardsTokenSale', function(accounts) {
     });
   });
 
-  
+  it('Ends token sale', function() {
+    return Rewards.deployed().then(function(instance) {
+      // Grab token instance first
+      tokenInstance = instance;
+      return RewardsTokenSale.deployed();
+    }).then(function(instance) {
+      // Then grab token sale instance
+      tokenSaleInstance = instance;
+      // Try to end sale from account other than the admin
+      return tokenSaleInstance.endSale({ from: buyer });
+    }).then(assert.fail).catch(function(error) {
+      assert(error.message.indexOf('revert') >= 0, 'Must be admin to end the sale');
+      // End sale as admin
+      return tokenSaleInstance.endSale({ from: admin });
+    }).then(function(receipt) {
+      return tokenInstance.balanceOf(admin);
+    }).then(function(balance) {
+      assert.equal(balance.toNumber(), 499999990, 'Returns all unsold tokens to the admin');
+      // Check that the contract has no balance
+      balance = web3.eth.getBalance(tokenSaleInstance.address)
+      assert.equal(balance.toNumber(), 0);
+    });
+  });
 });
