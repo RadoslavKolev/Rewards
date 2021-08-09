@@ -21,7 +21,7 @@ contract Rewards {
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
 
-    function Rewards(uint256 _initialSupply) public {
+    constructor(uint256 _initialSupply) public {
         // Sets the admin who owns all the tokens
         balanceOf[msg.sender] = _initialSupply;
 
