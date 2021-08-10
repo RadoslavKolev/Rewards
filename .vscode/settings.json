@@ -1,4 +1,8 @@
 {
     "solidity.compileUsingRemoteVersion": "v0.4.2+commit.af6afb04",
-    "solidity.compileUsingLocalVersion": "/home/radoslav/Documents/Projects/Rewards ICO/soljson-v0.8.6+commit.11564f7e.js"
+    "solidity.compileUsingLocalVersion": "/home/radoslav/Documents/Projects/Rewards ICO/soljson-v0.8.6+commit.11564f7e.js",
+    "cSpell.ignoreWords": [
+        "quanterall",
+        "radoslav"
+    ]
 }
