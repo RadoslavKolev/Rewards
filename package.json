@@ -1,0 +1,16 @@
+{
+    "name": "rewards-token-sale",
+    "description": "Rewards Token Sale ICO",
+    "main": "truffle-config.js",
+    "directories": {
+      "test": "test"
+    },
+    "scripts": {
+      "dev": "lite-server"
+    },
+    "author": "Radoslav",
+    "license": "Quanterall",
+    "devDependencies": {
+      "lite-server": "^2.3.0"
+    }
+  }
